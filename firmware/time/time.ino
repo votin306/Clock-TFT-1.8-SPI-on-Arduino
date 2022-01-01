@@ -1,9 +1,13 @@
+//*************Часы На TFT экране*************
+//**************Написано FtXivan**************
+
 #include <Time.h>
 #include <TFT.h> // Библиотека для работы с TFT-экраном
 #include <SPI.h>
 #include <Wire.h>
 #include <DS1307RTC.h>
- 
+
+//*********Пины для подключения экрана*********
 #define CS   10
 #define DC   9
 #define RESET  8  
@@ -13,7 +17,7 @@
 // #define DC   0
 // #define RESET  1 
  
-TFT myScreen = TFT(CS, DC, RESET);
+TFT myScreen = TFT(CS, DC, RESET); // Создаем обьект
  
 // массив символов для вывода времени на экран
 char sec[10];
@@ -24,17 +28,16 @@ char moht[14];
 char years[15];
  
 void setup(){
-  myScreen.begin(); 
-  myScreen.setRotation(2); 
-  myScreen.background(0,0,0); // очистка экрана
-  myScreen.stroke(255,0,255);  
-  // увеличиваем размер шрифта для текста, выводимого в блоке loop() 
-  myScreen.setTextSize(2);
+  myScreen.begin(); // Начинаем работать с экраном
+  myScreen.setRotation(2); //Задаем ориентацию(хех) экрана
+  myScreen.background(0,0,0); // Очистка экрана
+  myScreen.stroke(255,0,255); // Заливаем экран
+  myScreen.setTextSize(2); // увеличиваем размер шрифта для текста, выводимого в блоке loop() 
   
 }
 void loop(){
   
-  tmElements_t tm;
+  tmElements_t tm; // Создем элемент хранящий время
   if (RTC.read(tm)) {
     String elapsedTime = String(tm.Second);
     elapsedTime.toCharArray(sec,10);  
